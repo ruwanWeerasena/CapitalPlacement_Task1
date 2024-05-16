@@ -13,12 +13,14 @@ public class ProgramController : ControllerBase
     private readonly ICreateProgramService _createProgramService;
     private readonly IGetProgramService _getProgramService;
     private readonly IUpdateProgramService _updateProgramService;
+    private readonly IDeleteProgramService _deleteProgramService;
 
-    public ProgramController(ICreateProgramService createProgramService, IGetProgramService getProgramService, IUpdateProgramService updateProgramService)
+    public ProgramController(ICreateProgramService createProgramService, IGetProgramService getProgramService, IUpdateProgramService updateProgramService, IDeleteProgramService deleteProgramService)
     {
         _createProgramService = createProgramService;
         _getProgramService = getProgramService;
         _updateProgramService = updateProgramService;
+        _deleteProgramService = deleteProgramService;
     }
 
     [HttpPost]
@@ -50,6 +52,18 @@ public class ProgramController : ControllerBase
 
         var result = await _updateProgramService.UpdateProgram(request);
         if (result is not null)
+        {
+            return Ok(result);
+        }
+        return Problem("Operation Failed");
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteProgram(string id)
+    {
+
+        var result = await _deleteProgramService.DeleteProgram(id);
+        if (result)
         {
             return Ok(result);
         }
