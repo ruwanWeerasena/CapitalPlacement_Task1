@@ -30,4 +30,43 @@ public class ProgramRepository : IProgramRepository
             return null;
         }
     }
+
+    public async Task<bool> Delete(string id)
+    {
+        try
+        {
+            ItemResponse<Domain.Program> response = await _container.DeleteItemAsync<Domain.Program>(id, new PartitionKey(id));
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
+    public async Task<Domain.Program> GetById(string id)
+    {
+        try
+        {
+            ItemResponse<Domain.Program> response = await _container.ReadItemAsync<Domain.Program>(id, new PartitionKey(id));
+            return response.Resource;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
+    public async Task<Domain.Program> Update(Domain.Program program)
+    {
+        try
+        {
+            ItemResponse<Domain.Program> response = await _container.UpsertItemAsync<Domain.Program>(item: program);
+            return response.Resource;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
 }

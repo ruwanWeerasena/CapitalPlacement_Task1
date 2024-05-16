@@ -11,6 +11,7 @@ builder.Services.AddSingleton<DbContext>();
 builder.Services.AddScoped<IProgramRepository, ProgramRepository>();
 //services
 builder.Services.AddScoped<ICreateProgramService,CreateProgramService>();
+builder.Services.AddScoped<IGetProgramService,GetProgramService>();
 
 builder.Services.AddControllers();
 
