@@ -12,11 +12,13 @@ public class ProgramController : ControllerBase
 {
     private readonly ICreateProgramService _createProgramService;
     private readonly IGetProgramService _getProgramService;
+    private readonly IUpdateProgramService _updateProgramService;
 
-    public ProgramController(ICreateProgramService createProgramService, IGetProgramService getProgramService)
+    public ProgramController(ICreateProgramService createProgramService, IGetProgramService getProgramService, IUpdateProgramService updateProgramService)
     {
         _createProgramService = createProgramService;
         _getProgramService = getProgramService;
+        _updateProgramService = updateProgramService;
     }
 
     [HttpPost]
@@ -35,6 +37,18 @@ public class ProgramController : ControllerBase
     {
 
         var result = await _getProgramService.GetProgram(id);
+        if (result is not null)
+        {
+            return Ok(result);
+        }
+        return Problem("Operation Failed");
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> UpdateProgram([FromBody] UpdateProgramRequest request)
+    {
+
+        var result = await _updateProgramService.UpdateProgram(request);
         if (result is not null)
         {
             return Ok(result);

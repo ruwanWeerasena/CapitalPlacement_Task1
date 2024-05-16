@@ -12,6 +12,7 @@ builder.Services.AddScoped<IProgramRepository, ProgramRepository>();
 //services
 builder.Services.AddScoped<ICreateProgramService,CreateProgramService>();
 builder.Services.AddScoped<IGetProgramService,GetProgramService>();
+builder.Services.AddScoped<IUpdateProgramService,UpdateProgramService>();
 
 builder.Services.AddControllers();
 
