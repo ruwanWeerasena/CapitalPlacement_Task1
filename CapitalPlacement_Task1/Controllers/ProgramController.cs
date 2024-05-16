@@ -14,13 +14,15 @@ public class ProgramController : ControllerBase
     private readonly IGetProgramService _getProgramService;
     private readonly IUpdateProgramService _updateProgramService;
     private readonly IDeleteProgramService _deleteProgramService;
+    private readonly ICreateCandidateService _createCandidateService;
 
-    public ProgramController(ICreateProgramService createProgramService, IGetProgramService getProgramService, IUpdateProgramService updateProgramService, IDeleteProgramService deleteProgramService)
+    public ProgramController(ICreateProgramService createProgramService, IGetProgramService getProgramService, IUpdateProgramService updateProgramService, IDeleteProgramService deleteProgramService, ICreateCandidateService createCandidateService)
     {
         _createProgramService = createProgramService;
         _getProgramService = getProgramService;
         _updateProgramService = updateProgramService;
         _deleteProgramService = deleteProgramService;
+        _createCandidateService = createCandidateService;
     }
 
     [HttpPost]
@@ -64,6 +66,18 @@ public class ProgramController : ControllerBase
 
         var result = await _deleteProgramService.DeleteProgram(id);
         if (result)
+        {
+            return Ok(result);
+        }
+        return Problem("Operation Failed");
+    }
+
+    [HttpPost("candidate")]
+    public async Task<IActionResult> CreateCandidate([FromBody] CreateCandidateRequest request)
+    {
+
+        var result = await _createCandidateService.CreateCandidate(request);
+        if (result is not null)
         {
             return Ok(result);
         }

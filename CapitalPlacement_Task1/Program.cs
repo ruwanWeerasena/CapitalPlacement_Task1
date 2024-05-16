@@ -9,11 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<DbContext>();
 //repositories
 builder.Services.AddScoped<IProgramRepository, ProgramRepository>();
+builder.Services.AddScoped<ICandidateRepository, CandidateRepository>();
 //services
 builder.Services.AddScoped<ICreateProgramService,CreateProgramService>();
 builder.Services.AddScoped<IGetProgramService,GetProgramService>();
 builder.Services.AddScoped<IUpdateProgramService,UpdateProgramService>();
 builder.Services.AddScoped<IDeleteProgramService,DeleteProgramService>();
+builder.Services.AddScoped<ICreateCandidateService,CreateCandidateService>();
 
 builder.Services.AddControllers();
 
