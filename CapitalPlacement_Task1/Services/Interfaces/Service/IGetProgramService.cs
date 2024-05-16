@@ -1,6 +1,8 @@
-﻿namespace CapitalPlacement_Task1.Services.Interfaces.Service;
+﻿using CapitalPlacement_Task1.Controllers.ViewModels;
+
+namespace CapitalPlacement_Task1.Services.Interfaces.Service;
 
 public interface IGetProgramService
 {
-    Task<Domain.Program> GetProgram(string id);
+    Task<ProgramVm> GetProgram(string id);
 }
