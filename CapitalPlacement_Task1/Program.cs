@@ -1,12 +1,21 @@
+using CapitalPlacement_Task1.Infrastructure;
+using CapitalPlacement_Task1.Infrastructure.Persistence;
+using CapitalPlacement_Task1.Services;
+using CapitalPlacement_Task1.Services.Interfaces.Repository;
+using CapitalPlacement_Task1.Services.Interfaces.Service;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddSingleton<DbContext>();
+//repositories
+builder.Services.AddScoped<IProgramRepository, ProgramRepository>();
+//services
+builder.Services.AddScoped<ICreateProgramService,CreateProgramService>();
 
 builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
 
